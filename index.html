@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="="UTF-8" />
+    <meta name="viewport" content="widht=device-widht, initial-scale=1.0" />
+    <title>Sorteio Logística SNSC</title>
+
+    <script src="http://cdn.tawlindcss.com"></script>
+
+    <script src="https:cdn.jsdelivr,net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-blue-700 text-white shadow">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between itens-center">
+            <h1 class="text-xl font-bold">Logística SNSC</h1>
+            <nav class="space-x-4 text-sm">
+                <a href="index.html" class="hover:underline">Início</a>
+                <a href="meus-numeros.html" class="hover:underline">Meus Números</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-4">
+
+        <section class="bg-white rounded-xl shadow p-6 mb-8 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-blue-800 mb-3">
+        Ação Solidária – Logística SNSC
+      </h2>
+      <p class="text-gray-600 mb-6">
+        Doe e concorra! Sua contribuição ajuda nosso grupo.
+      </p>
+      <a href="#doar" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-lg transition">
+        Quero Doar e Participar
+      </a>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="bg-white rounded-xl shadow p-5 text-center">
+        <p class="text-sm text-gray-500">Total Arrecadado</p>
+        <p id="total-arrecadado" class="text-2xl font-bold text-green-600">R$ 0,00</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-5 text-center">
+        <p class="text-sm text-gray-500">Números Gerados</p>
+        <p id="total-numeros" class="text-2xl font-bold text-blue-600">0</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-5 text-center">
+        <p class="text-sm text-gray-500">Status</p>
+        <p id="status-sorteio" class="text-2xl font-bold text-gray-700">Ativo</p>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-xl shadow p-6 mb-8">
+      <h3 class="text-xl font-bold mb-4">Como funciona</h3>
+      <ol class="space-y-3 text-gray-700">
+        <li><strong>1.</strong> Escolha quantos números deseja</li>
+        <li><strong>2.</strong> Pague via Pix</li>
+        <li><strong>3.</strong> Envie o comprovante pelo WhatsApp</li>
+        <li><strong>4.</strong> Receba seus números e acompanhe o sorteio</li>
+      </ol>
+    </section>
+
+    <section id="doar" class="bg-white rounded-xl shadow p-6 mb-8">
+      <h3 class="text-xl font-bold mb-4">Fazer Doação</h3>
+
+      <form id="form-doacao" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Nome Completo</label>
+          <input type="text" id="nome" required
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Seu nome completo">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">WhatsApp</label>
+          <input type="tel" id="whatsapp" required
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="(00) 00000-0000">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Quantidade de Números</label>
+          <div class="flex items-center gap-3">
+            <button type="button" id="btn-menos" class="bg-gray-200 hover:bg-gray-300 w-10 h-10 rounded-lg font-bold">−</button>
+            <input type="number" id="quantidade" value="1" min="1"
+              class="w-20 text-center border border-gray-300 rounded-lg px-3 py-2">
+            <button type="button" id="btn-mais" class="bg-gray-200 hover:bg-gray-300 w-10 h-10 rounded-lg font-bold">+</button>
+          </div>
+          <p class="text-sm text-gray-500 mt-2">
+            Valor por número: <strong>R$ <span id="valor-unitario">10,00</span></strong><br>
+            Total a pagar: <strong>R$ <span id="valor-total">10,00</span></strong>
+          </p>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition">
+          Gerar Pix e Continuar
+        </button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="bg-gray-800 text-white text-center py-6 text-sm">
+    <p>Logística SNSC • Ação Solidária</p>
+    <p class="mt-1 text-gray-400">100% do valor arrecadado será destinado à causa do grupo</p>
+  </footer>
+
+  <script src="js/supabase-config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
