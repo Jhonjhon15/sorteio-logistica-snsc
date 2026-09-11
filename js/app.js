@@ -86,9 +86,7 @@ formDoacao.addEventListener('submit', async (e) => {
     return;
   }
 
-  alert(`Doação registrada!\n\nSeu código de referência: ${codigo}\nValor: R$ ${valor.toFixed(2)}\n\nEm breve você será direcionado para o pagamento.`);
-
-  console.log('Doação criada:', data);
+  window.location.href = `confirmacao.html?id=${data.id}`;
 });
 
 carregarConfiguracoes();
