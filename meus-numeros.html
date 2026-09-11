@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meus Números – Logística SNSC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <header class="bg-blue-700 text-white shadow">
+    <div class="max-w-2xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Logística SNSC</h1>
+      <a href="index.html" class="text-sm hover:underline">Início</a>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-4 py-8">
+
+    <div class="bg-white rounded-xl shadow p-6 mb-6">
+      <h2 class="text-2xl font-bold mb-2">Meus Números</h2>
+      <p class="text-gray-600 text-sm mb-6">Digite o WhatsApp usado na doação para consultar seus números.</p>
+
+      <form id="form-consulta" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">WhatsApp</label>
+          <input type="tel" id="whatsapp-consulta" required
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="(00) 00000-0000">
+        </div>
+        <button type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition">
+          Consultar
+        </button>
+      </form>
+    </div>
+
+    <div id="resultado" class="hidden">
+
+    </div>
+
+  </main>
+
+  <script src="js/supabase-config.js"></script>
+  <script src="js/consulta.js"></script>
+</body>
+</html>

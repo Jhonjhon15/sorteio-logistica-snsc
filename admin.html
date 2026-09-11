@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – Logística SNSC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <header class="bg-gray-900 text-white shadow">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Painel Admin – Logística SNSC</h1>
+      <a href="index.html" class="text-sm hover:underline">Ver site</a>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8">
+
+    <div class="flex gap-2 mb-6">
+      <button onclick="mostrarAba('pendentes')" id="tab-pendentes" class="px-4 py-2 rounded-lg font-medium bg-yellow-500 text-white">Pendentes</button>
+      <button onclick="mostrarAba('confirmados')" id="tab-confirmados" class="px-4 py-2 rounded-lg font-medium bg-gray-200">Confirmados</button>
+      <button onclick="mostrarAba('sorteio')" id="tab-sorteio" class="px-4 py-2 rounded-lg font-medium bg-gray-200">Sorteio</button>
+    </div>
+
+    <div id="aba-pendentes">
+      <h2 class="text-xl font-bold mb-4">Doações Pendentes</h2>
+      <div id="lista-pendentes" class="space-y-4">
+
+      </div>
+    </div>
+
+    <div id="aba-confirmados" class="hidden">
+      <h2 class="text-xl font-bold mb-4">Doações Confirmadas</h2>
+      <div id="lista-confirmados" class="space-y-4">
+
+      </div>
+    </div>
+
+    <div id="aba-sorteio" class="hidden">
+      <h2 class="text-xl font-bold mb-4">Realizar Sorteio</h2>
+      <div class="bg-white rounded-xl shadow p-6">
+        <p class="mb-4 text-gray-600">O sorteio será feito apenas entre os números <strong>confirmados</strong>.</p>
+        <button id="btn-sortear" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-lg">
+          Realizar Sorteio Agora
+        </button>
+        <div id="resultado-sorteio" class="mt-6 hidden"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="js/supabase-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
