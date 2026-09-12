@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Escolher Números – Logística SNSC</title>
+  <title>Início – Logística SNSC</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-config.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
 </head>
@@ -20,147 +18,47 @@
         </div>
         <div>
           <h1 class="text-xl font-bold text-white leading-tight">Logística SNSC</h1>
-          <p class="text-xs text-emerald-300 font-medium">Ação Solidária & Apoio Direto</p>
+          <p class="text-xs text-emerald-300 font-medium">Portal de Apoio Institucional & Ações Solidárias</p>
         </div>
       </div>
       <nav class="flex items-center gap-4 text-sm font-semibold">
-        <a href="index.html" class="text-emerald-200 hover:text-white transition">Início</a>
+        <a href="index.html" class="text-white border-b-2 border-emerald-400 pb-1 transition">Início</a>
+        <a href="instituicoes.html" class="text-emerald-200 hover:text-white transition">Instituições</a>
         <a href="meus-numeros.html" class="bg-emerald-700 hover:bg-emerald-600 px-4 py-2 rounded-xl text-white transition border border-emerald-500 shadow">Meus Prêmios</a>
       </nav>
     </div>
   </header>
 
-  <main class="max-w-4xl mx-auto px-4 py-8 w-full flex-grow">
+  <main class="max-w-4xl mx-auto px-4 py-16 w-full flex-grow flex flex-col items-center justify-center text-center">
     
-    <div id="info-instituicao" class="bg-emerald-900/80 border border-emerald-700 rounded-3xl p-6 mb-8 shadow-xl">
-      <h2 class="text-xs font-bold uppercase tracking-widest text-emerald-300 mb-1">Apoiando a Causa</h2>
-      <h3 id="inst-nome" class="text-2xl font-extrabold text-white mb-2">Carregando detalhes...</h3>
-      <p id="inst-descricao" class="text-sm text-emerald-200/90"></p>
-    </div>
+    <div class="bg-emerald-950/60 border border-emerald-800/60 rounded-3xl p-8 sm:p-12 shadow-2xl backdrop-blur-sm">
+      <span class="bg-emerald-800/80 text-emerald-200 border border-emerald-600 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block mb-6 shadow">
+        Solidariedade que Transforma
+      </span>
 
-    <div class="bg-emerald-900/60 border border-emerald-800 rounded-3xl p-6 shadow-xl text-center">
-      <h3 class="text-2xl font-black mb-2">Escolha seus Números</h3>
-      <p class="text-xs text-emerald-300 mb-6">Cada número custa <strong class="text-white">R$ 10,00</strong>. Clique nos quadrados para selecionar os seus.</p>
+      <h2 class="text-3xl sm:text-5xl font-black text-white mb-4 leading-tight">
+        Bem-vindo ao Portal <span class="text-emerald-400">Logística SNSC</span>
+      </h2>
 
-      <div class="flex flex-wrap items-center justify-center gap-6 text-xs font-semibold mb-8">
-        <div class="flex items-center gap-2"><span class="w-4 h-4 bg-emerald-950 border border-emerald-700 rounded"></span> Livre</div>
-        <div class="flex items-center gap-2"><span class="w-4 h-4 bg-emerald-400 rounded"></span> Selecionado</div>
-        <div class="flex items-center gap-2"><span class="w-4 h-4 bg-red-900/60 border border-red-700 rounded"></span> Ocupado</div>
-      </div>
+      <p class="text-sm sm:text-base text-emerald-200/90 mb-8 max-w-2xl mx-auto leading-relaxed">
+        Conectamos você diretamente a instituições parceiras que precisam de apoio. Escolha uma causa, participe com cotas de apoio e ajude a transformar vidas em nossa região.
+      </p>
 
-      <div id="grid-numeros" class="grid grid-cols-5 sm:grid-cols-10 gap-2 max-h-96 overflow-y-auto p-2 mb-6 border border-emerald-800/50 rounded-2xl bg-emerald-950/40">
-      </div>
-
-      <div class="flex flex-col sm:flex-row items-center justify-between border-t border-emerald-800/80 pt-6 gap-4">
-        <div class="text-left">
-          <p class="text-xs text-emerald-300">Selecionados: <strong id="qtd-selecionados" class="text-white">0</strong></p>
-          <p class="text-lg font-black text-emerald-400">Total: R$ <span id="valor-total">0,00</span></p>
-        </div>
-        <button onclick="avancarParaPagamento()" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold px-8 py-3 rounded-2xl shadow-lg transition">
-          GERAR PIX ➔
-        </button>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="instituicoes.html" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold px-8 py-4 rounded-2xl shadow-lg transition text-base">
+          VER INSTITUIÇÕES PARCEIRAS ➔
+        </a>
+        <a href="meus-numeros.html" class="w-full sm:w-auto bg-emerald-900/80 hover:bg-emerald-900 border border-emerald-700 text-emerald-200 font-bold px-6 py-4 rounded-2xl shadow transition text-base">
+          Ver Meus Prêmios / Apoios
+        </a>
       </div>
     </div>
+
   </main>
 
   <footer class="bg-emerald-900/60 border-t border-emerald-800 py-6 text-center text-xs text-emerald-400 mt-12">
     <p>© Logística SNSC • Compromisso Social e Transparência</p>
   </footer>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const instituicaoId = urlParams.get('id');
-
-    let numerosSelecionados = new Set();
-    const VALOR_CADA_NUMERO = 10.00;
-    const TOTAL_NUMEROS = 100; 
-
-    async function carregarDetalhesInstituicao() {
-      if (!instituicaoId) {
-        document.getElementById('inst-nome').innerText = "Nenhuma instituição selecionada.";
-        document.getElementById('inst-descricao').innerText = "Volte à página inicial e escolha uma instituição para apoiar.";
-        return;
-      }
-
-      try {
-        const { data, error } = await window._supabase
-          .from('instituicoes')
-          .select('*')
-          .eq('id', instituicaoId)
-          .single();
-
-        if (error || !data) {
-          document.getElementById('inst-nome').innerText = "Instituição não encontrada.";
-          return;
-        }
-
-        document.getElementById('inst-nome').innerText = data.nome;
-        document.getElementById('inst-descricao').innerText = data.descricao || '';
-      } catch (err) {
-        console.error('Erro ao buscar instituição:', err);
-      }
-    }
-
-    function renderizarGridNumeros() {
-      const grid = document.getElementById('grid-numeros');
-      let html = '';
-
-      for (let i = 1; i <= TOTAL_NUMEROS; i++) {
-        const numStr = String(i).padStart(3, '0');
-        html += `
-          <button onclick="toggleNumero(${i})" id="num-${i}" class="numero-btn h-11 bg-emerald-950 border border-emerald-800 rounded-xl font-bold text-sm text-emerald-300 hover:border-emerald-500 transition">
-            ${numStr}
-          </button>
-        `;
-      }
-      grid.innerHTML = html;
-    }
-
-    function toggleNumero(num) {
-      const btn = document.getElementById(`num-${num}`);
-      if (numerosSelecionados.has(num)) {
-        numerosSelecionados.delete(num);
-        btn.classList.remove('bg-emerald-400', 'text-emerald-950', 'border-emerald-400');
-        btn.classList.add('bg-emerald-950', 'text-emerald-300', 'border-emerald-800');
-      } else {
-        numerosSelecionados.add(num);
-        btn.classList.remove('bg-emerald-950', 'text-emerald-300', 'border-emerald-800');
-        btn.classList.add('bg-emerald-400', 'text-emerald-950', 'border-emerald-400');
-      }
-      atualizarResumo();
-    }
-
-    function atualizarResumo() {
-      const qtd = numerosSelecionados.size;
-      const total = qtd * VALOR_CADA_NUMERO;
-      document.getElementById('qtd-selecionados').innerText = qtd;
-      document.getElementById('valor-total').innerText = total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
-    }
-
-    function avancarParaPagamento() {
-      if (numerosSelecionados.size === 0) {
-        alert('Selecione pelo menos um número antes de prosseguir!');
-        return;
-      }
-
-      const quantidade = numerosSelecionados.size;
-      const valorTotal = quantidade * VALOR_CADA_NUMERO;
-      const numerosArray = Array.from(numerosSelecionados).map(n => String(n).padStart(3, '0'));
-
-      localStorage.setItem('pix_dados', JSON.stringify({
-        instituicaoId: instituicaoId,
-        quantidade: quantidade,
-        valorTotal: valorTotal,
-        numeros: numerosArray
-      }));
-
-      window.location.href = 'pagamento.html';
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      carregarDetalhesInstituicao();
-      renderizarGridNumeros();
-    });
-  </script>
 </body>
 </html>
