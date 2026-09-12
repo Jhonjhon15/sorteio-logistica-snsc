@@ -60,12 +60,15 @@
     <p>© Logística SNSC • Compromisso Social e Transparência</p>
   </footer>
 
+  <script src="supabase-config.js"></script>
+
   <script>
-    const SUPABASE_URL = 'https://vjciwtsyffeljghdpygb.supabase.co';
 
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqY2l3dHN5ZmZlamdoeGxweWdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxNjA1NTksImV4cCI6MjEwNDczNjU1OX0.cCwYBTVbKq0So_lNz-t-rbSujsD2c2D-8qvgiORCG2o'; 
-
-    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    if (typeof _supabase === 'undefined') {
+      const SUPABASE_URL = 'https://vjciwtsyffeljghdpygb.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqY2l3dHN5ZmZlbGpnaGRweWdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEzODU5NDAsImV4cCI6MjA1Njk2MTk0MH0.YOUR_FULL_KEY'; // cole a chave exata do seu painel aqui caso não use supabase-config.js
+      window._supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
 
     let todasInstituicoes = [];
 
@@ -78,7 +81,7 @@
 
         if (error) {
           console.error('Erro ao buscar instituições:', error);
-          document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-red-400 font-semibold py-8">Erro ao carregar dados do banco. Verifique a chave anon e as permissões RLS.</p>`;
+          document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-red-400 font-semibold py-8">Erro ao carregar dados do banco. Verifique as credenciais e o RLS.</p>`;
           return;
         }
 
