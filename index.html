@@ -65,7 +65,7 @@
   <script>
 
     if (typeof _supabase === 'undefined') {
-      const SUPABASE_URL = 'https://vjciwtsyffeljghdpygb.supabase.co';
+      const SUPABASE_URL = 'https://vjciwtsyffeljghdpygb.supabase.co/rest/v1';
       const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqY2l3dHN5ZmZlbGpnaGRweWdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEzODU5NDAsImV4cCI6MjA1Njk2MTk0MH0.YOUR_FULL_KEY'; // cole a chave exata do seu painel aqui caso não use supabase-config.js
       window._supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     }
