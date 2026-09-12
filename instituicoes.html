@@ -51,9 +51,16 @@
       const container = document.getElementById('lista-instituicoes');
 
       try {
-        const { data, error } = await window._supabase
+        const client = window._supabase || (typeof _supabase !== 'undefined' ? _supabase : null);
+
+        if (!client) {
+          throw new Error('Cliente do Supabase não inicializado.');
+        }
+
+        const { data, error } = await client
           .from('instituicoes')
-          .select('*');
+          .select('*')
+          .order('created_at', { ascending: true });
 
         if (error) {
           throw error;
@@ -66,18 +73,19 @@
 
         let html = '';
         data.forEach(inst => {
-          const arrecadado = inst.arrecadado || 0;
-          const meta = inst.meta || 5000;
+          
+          const arrecadado = Number(inst.valor_atual) || 0;
+          const meta = Number(inst.meta_arrecadacao) || 5000;
           const porcentagem = Math.min(Math.round((arrecadado / meta) * 100), 100);
 
           html += `
             <div class="bg-emerald-900/60 border border-emerald-800 rounded-3xl p-6 shadow-xl">
               <div class="flex items-center justify-between mb-3">
                 <span class="bg-emerald-700/80 text-emerald-200 text-xs font-bold px-3 py-1 rounded-full border border-emerald-600">
-                  ${inst.categoria || 'Ação Solidária'}
+                  ${inst.tipo_necessidade || 'Ação Solidária'}
                 </span>
                 <span class="text-xs text-emerald-300 flex items-center gap-1">
-                  📍 ${inst.cidade || 'São Luís - MA'}
+                  📍 ${inst.localizacao || 'São Luís - MA'}
                 </span>
               </div>
 
@@ -97,7 +105,7 @@
                 </div>
               </div>
 
-              <a href="numeros.html?id=${inst.id}" class="block text-center w-full bg-emerald-500 hover:bg-emerald-400 text-emerald-955 font-extrabold py-3 rounded-2xl shadow-lg transition text-emerald-950">
+              <a href="numeros.html?id=${inst.id}" class="block text-center w-full bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold py-3 rounded-2xl shadow-lg transition">
                 Apoiar Instituição ➔
               </a>
             </div>
