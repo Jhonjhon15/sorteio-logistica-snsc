@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal de Impacto Social – Logística SNSC</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script src="js/supabase-config.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
 </head>
@@ -26,133 +22,35 @@
         </div>
       </div>
       <nav class="flex items-center gap-4 text-sm font-semibold">
-        <a href="#instituicoes" class="text-emerald-200 hover:text-white transition">Instituições</a>
+        <a href="instituicoes.html" class="text-emerald-200 hover:text-white transition">Instituições</a>
         <a href="meus-numeros.html" class="bg-emerald-700 hover:bg-emerald-600 px-4 py-2 rounded-xl text-white transition border border-emerald-500 shadow">Meus Prêmios</a>
       </nav>
     </div>
   </header>
 
-  <section class="max-w-6xl mx-auto px-4 pt-12 pb-8 text-center">
+  <main class="max-w-4xl mx-auto px-4 py-16 text-center flex-grow flex flex-col justify-center items-center">
     <span class="bg-emerald-800/80 text-emerald-200 border border-emerald-600 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block mb-4">
       Conectando Quem Quer Ajudar a Quem Mais Precisa
     </span>
-    <h2 class="text-3xl sm:text-5xl font-extrabold text-white max-w-3xl mx-auto leading-tight mb-4">
+    
+    <h2 class="text-3xl sm:text-5xl font-extrabold text-white max-w-3xl mx-auto leading-tight mb-6">
       Transformando Vidas Através da Solidariedade
     </h2>
-    <p class="text-emerald-200 text-base sm:text-lg max-w-2xl mx-auto font-normal">
+    
+    <p class="text-emerald-200 text-base sm:text-lg max-w-2xl mx-auto font-normal mb-10">
       Conheça as instituições parceiras apoiadas pelo grupo Logística SNSC. Escolha uma causa, acompanhe as metas e faça sua contribuição direta ou participe de nossas ações.
     </p>
-  </section>
 
-  <main id="instituicoes" class="max-w-6xl mx-auto px-4 py-8 w-full flex-grow">
-
-    <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
-      <button onclick="filtrar('Todos')" class="btn-filtro bg-emerald-500 text-white px-4 py-2 rounded-xl text-sm font-bold shadow transition">Todas</button>
-      <button onclick="filtrar('Alimentação')" class="btn-filtro bg-emerald-900 text-emerald-300 hover:bg-emerald-800 px-4 py-2 rounded-xl text-sm font-bold border border-emerald-700 transition">Alimentação</button>
-      <button onclick="filtrar('Roupas')" class="btn-filtro bg-emerald-900 text-emerald-300 hover:bg-emerald-800 px-4 py-2 rounded-xl text-sm font-bold border border-emerald-700 transition">Roupas</button>
-      <button onclick="filtrar('Higiene')" class="btn-filtro bg-emerald-900 text-emerald-300 hover:bg-emerald-800 px-4 py-2 rounded-xl text-sm font-bold border border-emerald-700 transition">Higiene</button>
-      <button onclick="filtrar('Brinquedos')" class="btn-filtro bg-emerald-900 text-emerald-300 hover:bg-emerald-800 px-4 py-2 rounded-xl text-sm font-bold border border-emerald-700 transition">Brinquedos</button>
-    </div>
-
-    <div id="grid-instituicoes" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="col-span-full text-center py-12 text-emerald-300 font-medium">Carregando instituições...</div>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md">
+      <a href="instituicoes.html" class="bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold px-8 py-4 rounded-2xl shadow-xl transition text-center text-base">
+        Ver Instituições Parceiras ➔
+      </a>
     </div>
   </main>
 
-  <footer class="bg-emerald-900/60 border-t border-emerald-800 py-6 text-center text-xs text-emerald-400 mt-12">
+  <footer class="bg-emerald-900/60 border-t border-emerald-800 py-6 text-center text-xs text-emerald-400">
     <p>© Logística SNSC • Compromisso Social e Transparência</p>
   </footer>
 
-  <script>
-    let todasInstituicoes = [];
-
-    async function carregarInstituicoes() {
-      try {
-
-        const client = window._supabase || (typeof _supabase !== 'undefined' ? _supabase : null);
-
-        if (!client) {
-          throw new Error('Cliente do Supabase não foi inicializado corretamente.');
-        }
-
-        const { data, error } = await client
-          .from('instituicoes')
-          .select('*')
-          .order('created_at', { ascending: true });
-
-        if (error) {
-          console.error('Erro no Supabase:', error);
-          document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-red-400 font-semibold py-8">Erro ao carregar dados do banco. Verifique as credenciais e o RLS.</p>`;
-          return;
-        }
-
-        if (!data || data.length === 0) {
-          document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-emerald-300 py-8">Nenhuma instituição cadastrada no banco de dados ainda.</p>`;
-          return;
-        }
-
-        todasInstituicoes = data;
-        renderizarCards(todasInstituicoes);
-      } catch (err) {
-        console.error('Erro inesperado:', err);
-        document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-red-400 py-8">Erro de conexão ao carregar instituições.</p>`;
-      }
-    }
-
-    function renderizarCards(lista) {
-      const grid = document.getElementById('grid-instituicoes');
-      if (!lista || lista.length === 0) {
-        grid.innerHTML = `<p class="col-span-full text-center text-emerald-300 py-8">Nenhuma instituição encontrada nessa categoria.</p>`;
-        return;
-      }
-
-      grid.innerHTML = lista.map(item => {
-        const meta = Number(item.meta_arrecadacao) || 1;
-        const atual = Number(item.valor_atual) || 0;
-        const porcentagem = Math.min(100, Math.round((atual / meta) * 100));
-
-        return `
-          <div class="bg-emerald-900/80 border border-emerald-700/60 rounded-3xl p-6 flex flex-col justify-between shadow-xl hover:border-emerald-500 transition duration-300">
-            <div>
-              <div class="flex justify-between items-start mb-3">
-                <span class="bg-emerald-700 text-emerald-100 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500">${item.tipo_necessidade || 'Geral'}</span>
-                <span class="text-xs text-emerald-300 font-semibold">📍 ${item.localizacao || 'São Luís - MA'}</span>
-              </div>
-              <h3 class="text-xl font-bold text-white mb-2">${item.nome}</h3>
-              <p class="text-sm text-emerald-200/90 mb-6 line-clamp-3">${item.descricao || ''}</p>
-            </div>
-
-            <div>
-              <div class="mb-4">
-                <div class="flex justify-between text-xs font-bold mb-1">
-                  <span class="text-emerald-300">Arrecadado: R$ ${atual.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-                  <span class="text-emerald-400">${porcentagem}%</span>
-                </div>
-                <div class="w-full bg-emerald-950 rounded-full h-3 overflow-hidden border border-emerald-800">
-                  <div class="bg-emerald-400 h-full rounded-full transition-all duration-500" style="width: ${porcentagem}%"></div>
-                </div>
-                <div class="text-right text-[10px] text-emerald-400 mt-1">Meta: R$ ${meta.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
-              </div>
-
-              <a href="numeros.html?id=${item.id}" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold py-3 rounded-2xl shadow-lg transition">
-                Apoiar Instituição ➔
-              </a>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function filtrar(categoria) {
-      if (categoria === 'Todos') {
-        renderizarCards(todasInstituicoes);
-      } else {
-        const filtrados = todasInstituicoes.filter(item => item.tipo_necessidade === categoria);
-        renderizarCards(filtrados);
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', carregarInstituicoes);
-  </script>
 </body>
 </html>
