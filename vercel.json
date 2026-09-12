@@ -1,0 +1,11 @@
+{
+  "buildCommand": "echo 'Build complete'",
+  "outputDirectory": ".",
+  "cleanUrls": false,
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/$1"
+    }
+  ]
+}
