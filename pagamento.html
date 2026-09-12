@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagamento Pix – Logística SNSC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
+</head>
+<body class="bg-emerald-950 text-white min-h-screen flex flex-col justify-between">
+
+  <header class="bg-emerald-900 border-b border-emerald-800 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center font-black text-white shadow text-lg border border-emerald-400">
+          LS
+        </div>
+        <div>
+          <h1 class="text-lg font-bold text-white leading-tight">Logística SNSC</h1>
+          <p class="text-xs text-emerald-300">Pagamento via Pix</p>
+        </div>
+      </div>
+      <nav class="flex items-center gap-4 text-sm font-semibold">
+        <a href="index.html" class="text-emerald-200 hover:text-white transition">Início</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-xl mx-auto px-4 py-12 w-full flex-grow">
+    <div class="bg-emerald-900/80 border border-emerald-700 rounded-3xl p-8 shadow-2xl text-center">
+      
+      <span class="bg-emerald-800 text-emerald-200 border border-emerald-600 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block mb-4">
+        Quase Concluído!
+      </span>
+      
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">Escaneie o QR Code Pix</h2>
+      <p class="text-xs sm:text-sm text-emerald-200 mb-6">Utilize o aplicativo do seu banco para realizar o pagamento da sua contribuição.</p>
+
+      <div class="bg-emerald-950/80 border border-emerald-800 rounded-2xl p-4 mb-6 text-left">
+        <div class="flex justify-between text-xs sm:text-sm mb-2">
+          <span class="text-emerald-400">Quantidade de Números:</span>
+          <span id="resumo-qtd" class="font-bold text-white">0</span>
+        </div>
+        <div class="flex justify-between text-xs sm:text-sm mb-2">
+          <span class="text-emerald-400">Números Escolhidos:</span>
+          <span id="resumo-numeros" class="font-bold text-white truncate max-w-[200px]">--</span>
+        </div>
+        <div class="border-t border-emerald-900 pt-2 mt-2 flex justify-between text-sm sm:text-base font-extrabold">
+          <span class="text-emerald-300">Valor Total:</span>
+          <span id="resumo-valor" class="text-emerald-400">R$ 0,00</span>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-2xl inline-block mb-6 shadow-lg">
+        <div class="w-48 h-48 bg-emerald-900/10 border-2 border-dashed border-emerald-700 rounded-xl flex flex-col items-center justify-center text-emerald-950">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mb-2 text-emerald-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+          </svg>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-900">QR Code Pix</span>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-xs font-bold text-emerald-300 mb-2">Pix Copia e Cola:</label>
+        <div class="flex gap-2">
+          <input type="text" id="pix-copia-cola" readonly value="00020126580014br.gov.bcb.pix...logistica-snsc" class="w-full bg-emerald-950 border border-emerald-800 rounded-xl px-3 py-2 text-xs text-emerald-300 focus:outline-none" />
+          <button onclick="copiarPix()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow">
+            Copiar
+          </button>
+        </div>
+      </div>
+
+      <button onclick="confirmarSimulacaoPagamento()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold py-4 rounded-2xl shadow-lg transition text-center text-sm sm:text-base">
+        JÁ REALIZEI O PAGAMENTO ➔
+      </button>
+
+    </div>
+  </main>
+
+  <footer class="bg-emerald-900/60 border-t border-emerald-800 py-6 text-center text-xs text-emerald-400 mt-12">
+    <p>Logística SNSC • Pagamento Seguro</p>
+  </footer>
+
+  <script>
+    let dadosPagamento = null;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const salvo = localStorage.getItem('pix_dados');
+      if (!salvo) {
+        alert('Nenhum pedido encontrado. Retornando ao início.');
+        window.location.href = 'index.html';
+        return;
+      }
+
+      dadosPagamento = JSON.parse(salvo);
+      document.getElementById('resumo-qtd').innerText = dadosPagamento.quantidade;
+      document.getElementById('resumo-numeros').innerText = dadosPagamento.numeros.join(', ');
+      document.getElementById('resumo-valor').innerText = dadosPagamento.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    });
+
+    function copiarPix() {
+      const input = document.getElementById('pix-copia-cola');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      alert('Chave Pix Copia e Cola copiada com sucesso!');
+    }
+
+    async function confirmarSimulacaoPagamento() {
+      alert('Pagamento simulado com sucesso! Redirecionando para a sua aba de prêmios/números.');
+      localStorage.removeItem('pix_dados');
+      window.location.href = 'meus-numeros.html';
+    }
+  </script>
+</body>
+</html>
