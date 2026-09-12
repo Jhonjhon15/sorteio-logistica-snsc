@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal de Impacto Social – Logística SNSC</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase-config.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
 </head>
@@ -60,27 +63,25 @@
     <p>© Logística SNSC • Compromisso Social e Transparência</p>
   </footer>
 
-  <script src="supabase-config.js"></script>
-
   <script>
-
-    if (typeof _supabase === 'undefined') {
-      const SUPABASE_URL = 'https://vjciwtsyffeljghdpygb.supabase.co/rest/v1';
-      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqY2l3dHN5ZmZlbGpnaGRweWdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEzODU5NDAsImV4cCI6MjA1Njk2MTk0MH0.YOUR_FULL_KEY'; // cole a chave exata do seu painel aqui caso não use supabase-config.js
-      window._supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    }
-
     let todasInstituicoes = [];
 
     async function carregarInstituicoes() {
       try {
-        const { data, error } = await _supabase
+
+        const client = window._supabase || (typeof _supabase !== 'undefined' ? _supabase : null);
+
+        if (!client) {
+          throw new Error('Cliente do Supabase não foi inicializado corretamente.');
+        }
+
+        const { data, error } = await client
           .from('instituicoes')
           .select('*')
           .order('created_at', { ascending: true });
 
         if (error) {
-          console.error('Erro ao buscar instituições:', error);
+          console.error('Erro no Supabase:', error);
           document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-red-400 font-semibold py-8">Erro ao carregar dados do banco. Verifique as credenciais e o RLS.</p>`;
           return;
         }
@@ -94,7 +95,7 @@
         renderizarCards(todasInstituicoes);
       } catch (err) {
         console.error('Erro inesperado:', err);
-        document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-red-400 py-8">Erro de conexão.</p>`;
+        document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-red-400 py-8">Erro de conexão ao carregar instituições.</p>`;
       }
     }
 
@@ -122,7 +123,6 @@
             </div>
 
             <div>
-              <!-- Barra de Progresso -->
               <div class="mb-4">
                 <div class="flex justify-between text-xs font-bold mb-1">
                   <span class="text-emerald-300">Arrecadado: R$ ${atual.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
@@ -134,7 +134,6 @@
                 <div class="text-right text-[10px] text-emerald-400 mt-1">Meta: R$ ${meta.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
               </div>
 
-              <!-- Botão para Doar / Detalhes -->
               <a href="numeros.html?id=${item.id}" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold py-3 rounded-2xl shadow-lg transition">
                 Apoiar Instituição ➔
               </a>
