@@ -62,58 +62,73 @@
 
   <script>
     const SUPABASE_URL = 'https://vjciwtsyffeljghdpygb.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_eaTIjr6XPftkzoxw9fIClg_5vahyc3b'; 
+
+    const SUPABASE_ANON_KEY = 'COLE_SUA_CHAVE_ANON_AQUI'; 
+
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     let todasInstituicoes = [];
 
     async function carregarInstituicoes() {
-      const { data, error } = await _supabase
-        .from('instituicoes')
-        .select('*')
-        .order('created_at', { ascending: true });
+      try {
+        const { data, error } = await _supabase
+          .from('instituicoes')
+          .select('*')
+          .order('created_at', { ascending: true });
 
-      if (error) {
-        console.error('Erro ao buscar instituições:', error);
-        document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-red-400">Erro ao carregar os dados.</p>`;
-        return;
+        if (error) {
+          console.error('Erro ao buscar instituições:', error);
+          document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-red-400 font-semibold py-8">Erro ao carregar dados do banco. Verifique a chave anon e as permissões RLS.</p>`;
+          return;
+        }
+
+        if (!data || data.length === 0) {
+          document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-emerald-300 py-8">Nenhuma instituição cadastrada no banco de dados ainda.</p>`;
+          return;
+        }
+
+        todasInstituicoes = data;
+        renderizarCards(todasInstituicoes);
+      } catch (err) {
+        console.error('Erro inesperado:', err);
+        document.getElementById('grid-instituicoes').innerHTML = `<p class="col-span-full text-center text-red-400 py-8">Erro de conexão.</p>`;
       }
-
-      todasInstituicoes = data;
-      renderizarCards(todasInstituicoes);
     }
 
     function renderizarCards(lista) {
       const grid = document.getElementById('grid-instituicoes');
-      if (lista.length === 0) {
-        grid.innerHTML = `<p class="col-span-full text-center text-emerald-300">Nenhuma instituição encontrada nessa categoria.</p>`;
+      if (!lista || lista.length === 0) {
+        grid.innerHTML = `<p class="col-span-full text-center text-emerald-300 py-8">Nenhuma instituição encontrada nessa categoria.</p>`;
         return;
       }
 
       grid.innerHTML = lista.map(item => {
-        const porcentagem = Math.min(100, Math.round((item.valor_atual / item.meta_arrecadacao) * 100));
+        const meta = Number(item.meta_arrecadacao) || 1;
+        const atual = Number(item.valor_atual) || 0;
+        const porcentagem = Math.min(100, Math.round((atual / meta) * 100));
+
         return `
           <div class="bg-emerald-900/80 border border-emerald-700/60 rounded-3xl p-6 flex flex-col justify-between shadow-xl hover:border-emerald-500 transition duration-300">
             <div>
               <div class="flex justify-between items-start mb-3">
-                <span class="bg-emerald-700 text-emerald-100 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500">${item.tipo_necessidade}</span>
-                <span class="text-xs text-emerald-300 font-semibold">📍 ${item.localizacao}</span>
+                <span class="bg-emerald-700 text-emerald-100 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500">${item.tipo_necessidade || 'Geral'}</span>
+                <span class="text-xs text-emerald-300 font-semibold">📍 ${item.localizacao || 'São Luís - MA'}</span>
               </div>
               <h3 class="text-xl font-bold text-white mb-2">${item.nome}</h3>
-              <p class="text-sm text-emerald-200/90 mb-6 line-clamp-3">${item.descricao}</p>
+              <p class="text-sm text-emerald-200/90 mb-6 line-clamp-3">${item.descricao || ''}</p>
             </div>
 
             <div>
               <!-- Barra de Progresso -->
               <div class="mb-4">
                 <div class="flex justify-between text-xs font-bold mb-1">
-                  <span class="text-emerald-300">Arrecadado: R$ ${item.valor_atual.toLocaleString('pt-BR')}</span>
+                  <span class="text-emerald-300">Arrecadado: R$ ${atual.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                   <span class="text-emerald-400">${porcentagem}%</span>
                 </div>
                 <div class="w-full bg-emerald-950 rounded-full h-3 overflow-hidden border border-emerald-800">
                   <div class="bg-emerald-400 h-full rounded-full transition-all duration-500" style="width: ${porcentagem}%"></div>
                 </div>
-                <div class="text-right text-[10px] text-emerald-400 mt-1">Meta: R$ ${item.meta_arrecadacao.toLocaleString('pt-BR')}</div>
+                <div class="text-right text-[10px] text-emerald-400 mt-1">Meta: R$ ${meta.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
               </div>
 
               <!-- Botão para Doar / Detalhes -->
@@ -135,7 +150,7 @@
       }
     }
 
-    carregarInstituicoes();
+    window.addEventListener('DOMContentLoaded', carregarInstituicoes);
   </script>
 </body>
 </html>
