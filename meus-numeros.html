@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meus Números – Logística SNSC</title>
+  <title>Prêmios – Logística SNSC</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
 </head>
-<body class="bg-emerald-950 text-gray-100 min-h-screen flex flex-col justify-between">
+<body class="bg-emerald-950 text-white min-h-screen flex flex-col justify-between">
 
   <div>
     <header class="bg-emerald-900 border-b border-emerald-800 shadow-lg">
@@ -19,53 +19,69 @@
           <img src="assets/images/logo-logistica.png" alt="Logística SNSC" class="w-12 h-12 object-contain bg-white rounded-full p-1 shadow">
           <div>
             <h1 class="text-lg font-bold text-white">Logística SNSC</h1>
-            <p class="text-xs text-emerald-300">Ação Solidária</p>
+            <p class="text-xs text-white">Ação Solidária</p>
           </div>
         </div>
         <nav class="flex gap-3 text-sm font-semibold">
-          <a href="index.html" class="text-emerald-200 hover:text-white px-4 py-2 transition">Início</a>
-          <a href="meus-numeros.html" class="bg-emerald-700 text-white px-4 py-2 rounded-xl hover:bg-emerald-600 transition shadow">Meus Números</a>
+          <a href="index.html" class="text-white hover:text-emerald-200 px-4 py-2 transition">Início</a>
+          <a href="meus-numeros.html" class="bg-emerald-700 text-white px-4 py-2 rounded-xl hover:bg-emerald-600 transition shadow">Prêmios</a>
         </nav>
       </div>
     </header>
 
     <main class="max-w-3xl mx-auto px-4 py-8 space-y-8">
 
-      <section class="bg-emerald-900 border border-emerald-700/60 rounded-3xl p-6 shadow-xl">
+      <section class="bg-emerald-900 border border-emerald-700 rounded-3xl p-6 shadow-xl">
         <h3 class="text-xl font-extrabold text-center text-white mb-6 border-b border-emerald-800 pb-3">🏆 Premiação do Sorteio</h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-          <div class="bg-emerald-950/80 p-4 rounded-2xl border border-emerald-700/40">
-            <p class="text-xs font-bold text-amber-400 uppercase">1º Lugar</p>
+          
+          <div class="bg-emerald-950/90 p-4 rounded-2xl border-t border-x border-emerald-700 border-b-4 border-b-amber-400 shadow">
+            <p class="text-xs font-bold text-amber-400 uppercase">1º LUGAR</p>
             <p class="text-lg font-black text-white mt-1">Prêmio Principal</p>
           </div>
-          <div class="bg-emerald-950/80 p-4 rounded-2xl border border-emerald-700/40">
-            <p class="text-xs font-bold text-gray-300 uppercase">2º Lugar</p>
+
+          <div class="bg-emerald-950/90 p-4 rounded-2xl border-t border-x border-emerald-700 border-b-4 border-b-slate-300 shadow">
+            <p class="text-xs font-bold text-slate-300 uppercase">2º LUGAR</p>
             <p class="text-lg font-black text-white mt-1">Segundo Prêmio</p>
           </div>
-          <div class="bg-emerald-950/80 p-4 rounded-2xl border border-emerald-700/40">
-            <p class="text-xs font-bold text-amber-600 uppercase">3º Lugar</p>
+
+          <div class="bg-emerald-950/90 p-4 rounded-2xl border-t border-x border-emerald-700 border-b-4 border-b-amber-600 shadow">
+            <p class="text-xs font-bold text-amber-600 uppercase">3º LUGAR</p>
             <p class="text-lg font-black text-white mt-1">Terceiro Prêmio</p>
           </div>
+
         </div>
       </section>
 
-      <section class="bg-emerald-900 border border-emerald-700/60 rounded-3xl p-6 sm:p-8 shadow-xl max-w-lg mx-auto">
-        <h3 class="text-xl font-extrabold text-white mb-4 text-center">Consultar Meus Números</h3>
-        <p class="text-emerald-200 text-sm text-center mb-6">Digite o WhatsApp utilizado na doação para visualizar seus bilhetes.</p>
+      <section class="bg-emerald-900 border border-emerald-700 rounded-3xl p-6 sm:p-8 shadow-xl max-w-lg mx-auto">
+        <h3 class="text-xl font-extrabold text-white mb-2 text-center">Consultar Meus Números</h3>
+        <p class="text-white text-xs text-center mb-6">Digite seu WhatsApp para consultar seus bilhetes e verificar se você foi premiado.</p>
         
         <form id="form-consulta" class="space-y-4">
-          <input type="tel" id="consulta-whatsapp" required class="w-full bg-emerald-950 border border-emerald-700 text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-400 focus:outline-none placeholder-emerald-600" placeholder="(00) 00000-0000">
-          <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-black py-3.5 rounded-xl transition uppercase tracking-wide">
-            Consultar Bilhetes
+          <input type="tel" id="consulta-whatsapp" required class="w-full bg-emerald-950 border border-emerald-700 text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-400 focus:outline-none placeholder-emerald-500" placeholder="(00) 00000-0000">
+          <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-black py-3.5 rounded-xl transition uppercase tracking-wide border border-emerald-400">
+            CONSULTAR BILHETES
           </button>
         </form>
 
         <div id="resultado-consulta" class="mt-6 hidden space-y-4"></div>
+
+        <div id="area-resgate-vencedor" class="hidden mt-6 bg-amber-500/20 border-2 border-amber-400 rounded-2xl p-5 text-center">
+          <h4 class="text-xl font-black text-amber-300 uppercase">🎉 Parabéns! Você foi contemplado!</h4>
+          <p class="text-xs text-white mt-1 mb-4">Insira sua chave PIX abaixo para receber o resgate do seu prêmio diretamente.</p>
+          <form id="form-resgate" class="space-y-3">
+            <input type="text" id="chave-pix-vencedor" required class="w-full bg-emerald-950 border border-amber-400 text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none" placeholder="Digite sua Chave PIX (CPF, Celular, E-mail, etc.)">
+            <button type="submit" class="w-full bg-amber-400 hover:bg-amber-300 text-emerald-950 font-black py-3 rounded-xl uppercase text-sm">
+              Solicitar Resgate do Prêmio
+            </button>
+          </form>
+        </div>
+
       </section>
     </main>
   </div>
 
-  <footer class="bg-emerald-900/60 border-t border-emerald-800 py-4 mt-8 text-center text-xs text-emerald-300">
+  <footer class="bg-emerald-900/60 border-t border-emerald-800 py-4 mt-8 text-center text-xs text-white">
     <p>Logística SNSC • Ação Solidária</p>
   </footer>
 

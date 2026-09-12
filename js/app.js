@@ -4,8 +4,37 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnMenos = document.getElementById('btn-menos');
   const btnMais = document.getElementById('btn-mais');
   const valorTotalEl = document.getElementById('valor-total');
-  
+  const gridNumeros = document.getElementById('grid-numeros');
+
   let valorUnitario = 10.00;
+
+  async function carregarGradeNumeros() {
+    if (!gridNumeros) return;
+    gridNumeros.innerHTML = '';
+
+    let numerosOcupados = [];
+    try {
+      const { data } = await supabaseClient.from('numeros_gerados').select('numero');
+      if (data) {
+        numerosOcupados = data.map(n => n.numero);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar números:', err);
+    }
+
+    for (let i = 1; i <= 100; i++) {
+      const card = document.createElement('div');
+      const isOcupado = numerosOcupados.includes(i);
+
+      card.className = `p-2 text-center rounded-xl font-extrabold border text-sm transition ${
+        isOcupado 
+          ? 'bg-red-600/80 border-red-500 text-white shadow-inner cursor-not-allowed' 
+          : 'bg-emerald-800 border-emerald-600 text-white hover:bg-emerald-700 cursor-pointer'
+      }`;
+      card.textContent = i.toString().padStart(2, '0');
+      gridNumeros.appendChild(card);
+    }
+  }
 
   function atualizarCalculo() {
     let qtd = parseInt(inputQuantidade.value) || 1;
@@ -31,7 +60,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
     const nome = document.getElementById('nome').value.trim();
     const whatsapp = document.getElementById('whatsapp').value.trim();
     const quantidade = parseInt(inputQuantidade.value);
@@ -53,11 +81,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         .single();
 
       if (error) throw error;
-
       window.location.href = `confirmacao.html?id=${data.id}`;
     } catch (err) {
       console.error(err);
       alert('Erro ao registrar doação. Verifique a conexão e tente novamente.');
     }
   });
+
+  carregarGradeNumeros();
 });

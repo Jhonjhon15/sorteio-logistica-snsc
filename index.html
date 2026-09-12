@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
 </head>
-<body class="bg-emerald-950 text-gray-100 min-h-screen flex flex-col justify-between">
+<body class="bg-emerald-950 text-white min-h-screen flex flex-col justify-between">
 
   <div>
 
@@ -19,13 +19,13 @@
           <img src="assets/images/santuario.png" alt="Santuário" class="w-12 h-12 object-contain bg-white rounded-full p-1 shadow">
           <img src="assets/images/logo-logistica.png" alt="Logística SNSC" class="w-12 h-12 object-contain bg-white rounded-full p-1 shadow">
           <div>
-            <h1 class="text-lg font-bold leading-tight text-white">Logística SNSC</h1>
-            <p class="text-xs text-emerald-300">Ação Solidária</p>
+            <h1 class="text-lg font-bold text-white">Logística SNSC</h1>
+            <p class="text-xs text-white">Ação Solidária</p>
           </div>
         </div>
         <nav class="flex gap-3 text-sm font-semibold">
           <a href="index.html" class="bg-emerald-700 text-white px-4 py-2 rounded-xl hover:bg-emerald-600 transition shadow">Início</a>
-          <a href="meus-numeros.html" class="text-emerald-200 hover:text-white px-4 py-2 transition">Meus Números</a>
+          <a href="meus-numeros.html" class="text-white hover:text-emerald-200 px-4 py-2 transition">Prêmios</a>
         </nav>
       </div>
     </header>
@@ -33,63 +33,72 @@
     <main class="max-w-3xl mx-auto px-4 py-8">
       <section class="text-center mb-8">
         <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">Ação Solidária – Logística SNSC</h2>
-        <p class="text-emerald-200 text-base font-medium">Doe e concorra! Sua contribuição ajuda nosso grupo.</p>
+        <p class="text-white text-base font-medium">Doe e concorra! Sua contribuição ajuda nosso grupo.</p>
       </section>
 
       <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div class="bg-emerald-900/80 backdrop-blur p-5 rounded-2xl border border-emerald-700/50 text-center shadow-lg">
-          <p class="text-xs font-bold text-emerald-300 uppercase tracking-wider">Total Arrecadado</p>
-          <p id="total-arrecadado" class="text-2xl font-black text-emerald-400 mt-1">R$ 0,00</p>
+        <div class="bg-emerald-900/90 p-5 rounded-2xl border border-emerald-700 text-center shadow-lg">
+          <p class="text-xs font-bold text-white uppercase tracking-wider">TOTAL ARRECADADO</p>
+          <p id="total-arrecadado" class="text-2xl font-black text-white mt-1">R$ 0,00</p>
         </div>
-        <div class="bg-emerald-900/80 backdrop-blur p-5 rounded-2xl border border-emerald-700/50 text-center shadow-lg">
-          <p class="text-xs font-bold text-emerald-300 uppercase tracking-wider">Números Gerados</p>
+
+        <a href="#tabela-numeros" id="card-numeros" class="bg-emerald-900/90 p-5 rounded-2xl border border-emerald-700 text-center shadow-lg hover:border-emerald-400 transition cursor-pointer group">
+          <p class="text-xs font-bold text-white uppercase tracking-wider group-hover:text-emerald-300">NÚMEROS GERADOS ↗</p>
           <p id="total-numeros" class="text-2xl font-black text-white mt-1">0 / 100</p>
-        </div>
-        <div class="bg-emerald-900/80 backdrop-blur p-5 rounded-2xl border border-emerald-700/50 text-center shadow-lg">
-          <p class="text-xs font-bold text-emerald-300 uppercase tracking-wider">Status</p>
-          <p id="status-sorteio" class="text-2xl font-black text-emerald-400 mt-1">Ativo</p>
+        </a>
+
+        <div class="bg-emerald-900/90 p-5 rounded-2xl border border-emerald-700 text-center shadow-lg">
+          <p class="text-xs font-bold text-white uppercase tracking-wider">STATUS</p>
+          <p id="status-sorteio" class="text-2xl font-black text-white mt-1">Ativo</p>
         </div>
       </section>
 
-      <section class="bg-emerald-900 border border-emerald-700/60 rounded-3xl p-6 sm:p-8 shadow-2xl max-w-lg mx-auto">
+      <section class="bg-emerald-900 border border-emerald-700 rounded-3xl p-6 sm:p-8 shadow-2xl max-w-lg mx-auto">
         <h3 class="text-xl font-extrabold text-white mb-6 text-center border-b border-emerald-800 pb-4">Fazer Doação</h3>
         
         <form id="form-doacao" class="space-y-5">
           <div>
-            <label class="block text-sm font-bold text-emerald-200 mb-1">Nome Completo</label>
-            <input type="text" id="nome" required class="w-full bg-emerald-950 border border-emerald-700 text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-400 focus:outline-none placeholder-emerald-600 transition" placeholder="Seu nome completo">
+            <label class="block text-sm font-bold text-white mb-1">Nome Completo</label>
+            <input type="text" id="nome" required class="w-full bg-emerald-950 border border-emerald-700 text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-400 focus:outline-none placeholder-emerald-500" placeholder="Seu nome completo">
           </div>
 
           <div>
-            <label class="block text-sm font-bold text-emerald-200 mb-1">WhatsApp</label>
-            <input type="tel" id="whatsapp" required class="w-full bg-emerald-950 border border-emerald-700 text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-400 focus:outline-none placeholder-emerald-600 transition" placeholder="(00) 00000-0000">
+            <label class="block text-sm font-bold text-white mb-1">WhatsApp</label>
+            <input type="tel" id="whatsapp" required class="w-full bg-emerald-950 border border-emerald-700 text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-400 focus:outline-none placeholder-emerald-500" placeholder="(00) 00000-0000">
           </div>
 
           <div>
-            <label class="block text-sm font-bold text-emerald-200 mb-1">Quantidade de Números</label>
+            <label class="block text-sm font-bold text-white mb-1">Quantidade de Números</label>
             <div class="flex items-center justify-center gap-4 py-1">
-              <button type="button" id="btn-menos" class="bg-emerald-800 hover:bg-emerald-700 text-white w-12 h-12 rounded-xl font-bold text-xl transition shadow">-</button>
+              <button type="button" id="btn-menos" class="bg-emerald-800 hover:bg-emerald-700 text-white w-12 h-12 rounded-xl font-bold text-xl transition">-</button>
               <input type="number" id="quantidade" value="1" min="1" max="100" class="w-20 text-center bg-emerald-950 border border-emerald-700 text-white rounded-xl py-2.5 font-black text-xl focus:outline-none">
-              <button type="button" id="btn-mais" class="bg-emerald-800 hover:bg-emerald-700 text-white w-12 h-12 rounded-xl font-bold text-xl transition shadow">+</button>
+              <button type="button" id="btn-mais" class="bg-emerald-800 hover:bg-emerald-700 text-white w-12 h-12 rounded-xl font-bold text-xl transition">+</button>
             </div>
           </div>
 
-          <div class="bg-emerald-950/80 border border-emerald-800 p-4 rounded-2xl text-sm space-y-1 text-center">
-            <p class="text-emerald-300">Valor por número: <strong class="text-white">R$ 10,00</strong></p>
-            <p class="text-white font-extrabold text-lg">Total a pagar: <span id="valor-total" class="text-emerald-400">R$ 10,00</span></p>
+          <div class="bg-emerald-950 border border-emerald-800 p-4 rounded-2xl text-sm space-y-1 text-center">
+            <p class="text-white">Valor por número: <strong class="text-white">R$ 10,00</strong></p>
+            <p class="text-white font-extrabold text-lg">Total a pagar: <span id="valor-total" class="text-white">R$ 10,00</span></p>
           </div>
 
-          <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-black py-4 rounded-xl shadow-xl transition text-lg tracking-wide uppercase">
-            Gerar Pix
+          <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-black py-4 rounded-xl shadow-xl transition text-lg tracking-wide uppercase border border-emerald-400">
+            GERAR PIX
           </button>
         </form>
+      </section>
+
+      <section id="tabela-numeros" class="mt-12 bg-emerald-900 border border-emerald-700 rounded-3xl p-6 shadow-xl">
+        <h3 class="text-xl font-extrabold text-white mb-2 text-center">Números da Ação</h3>
+        <p class="text-xs text-center text-white/80 mb-6">Quadrados verdes estão livres; quadrados vermelhos já foram escolhidos.</p>
+        <div id="grid-numeros" class="grid grid-cols-5 sm:grid-cols-10 gap-2">
+
+        </div>
       </section>
     </main>
   </div>
 
-  <footer class="bg-emerald-900/60 border-t border-emerald-800 py-4 mt-8 text-center text-xs sm:text-sm text-emerald-300 font-medium">
+  <footer class="bg-emerald-900/60 border-t border-emerald-800 py-4 mt-8 text-center text-xs text-white">
     <p>Logística SNSC • Ação Solidária</p>
-    <p class="mt-0.5 text-emerald-400/80">100% do valor arrecadado será destinado à causa do grupo.</p>
   </footer>
 
   <script src="js/supabase-config.js"></script>
