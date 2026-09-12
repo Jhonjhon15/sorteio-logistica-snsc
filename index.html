@@ -6,50 +6,81 @@
   <title>Portal de Impacto Social – Logística SNSC</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
+  <style>
+    body { 
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
 </head>
 <body class="bg-emerald-950 text-white min-h-screen flex flex-col justify-between">
 
   <header class="bg-emerald-900 border-b border-emerald-800 shadow-lg">
     <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center font-black text-white shadow-lg text-xl border border-emerald-400">
           LS
         </div>
         <div>
           <h1 class="text-xl font-bold text-white leading-tight">Logística SNSC</h1>
-          <p class="text-xs text-emerald-300 font-medium">Portal de Apoio Institucional & Ações Solidárias</p>
+          <p class="text-xs text-emerald-300 font-medium">Portal de Impacto Social</p>
         </div>
       </div>
+
       <nav class="flex items-center gap-4 text-sm font-semibold">
-        <a href="instituicoes.html" class="text-emerald-200 hover:text-white transition">Instituições</a>
-        <a href="meus-numeros.html" class="bg-emerald-700 hover:bg-emerald-600 px-4 py-2 rounded-xl text-white transition border border-emerald-500 shadow">Meus Prêmios</a>
+        <a href="instituicoes.html" class="text-emerald-200 hover:text-white transition">
+          Instituições
+        </a>
+        <a href="meus-numeros.html" class="bg-emerald-700 hover:bg-emerald-600 px-4 py-2 rounded-xl text-white transition border border-emerald-500 shadow">
+          Meus Prêmios
+        </a>
       </nav>
     </div>
   </header>
 
-  <main class="max-w-4xl mx-auto px-4 py-16 text-center flex-grow flex flex-col justify-center items-center">
-    <span class="bg-emerald-800/80 text-emerald-200 border border-emerald-600 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block mb-4">
-      Conectando Quem Quer Ajudar a Quem Mais Precisa
-    </span>
-    
-    <h2 class="text-3xl sm:text-5xl font-extrabold text-white max-w-3xl mx-auto leading-tight mb-6">
-      Transformando Vidas Através da Solidariedade
-    </h2>
-    
-    <p class="text-emerald-200 text-base sm:text-lg max-w-2xl mx-auto font-normal mb-10">
-      Conheça as instituições parceiras apoiadas pelo grupo Logística SNSC. Escolha uma causa, acompanhe as metas e faça sua contribuição direta ou participe de nossas ações.
-    </p>
+  <main class="flex-grow flex items-center justify-center">
+    <section class="max-w-4xl mx-auto px-4 py-20 text-center">
 
-    <div class="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md">
-      <a href="instituicoes.html" class="bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold px-8 py-4 rounded-2xl shadow-xl transition text-center text-base">
-        Ver Instituições Parceiras ➔
+      <span class="bg-emerald-800/80 text-emerald-200 border border-emerald-600 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block mb-6">
+        Conectando Quem Quer Ajudar a Quem Mais Precisa
+      </span>
+
+      <h2 class="text-4xl sm:text-6xl font-extrabold text-white max-w-3xl mx-auto leading-tight mb-6">
+        Transformando Vidas Através da Solidariedade
+      </h2>
+
+      <p class="text-emerald-200 text-base sm:text-lg max-w-2xl mx-auto font-normal mb-10">
+        Conheça as instituições parceiras apoiadas pelo grupo Logística SNSC. Escolha uma causa, acompanhe as metas e faça sua contribuição direta ou participe de nossas ações.
+      </p>
+
+      <a 
+        href="instituicoes.html" 
+        class="inline-block bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold py-4 px-10 rounded-2xl shadow-lg transition text-lg border-2 border-emerald-400 hover:border-emerald-300"
+      >
+        Conhecer Instituições Parceiras ➔
       </a>
-    </div>
+
+      <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-emerald-400 mb-2">50+</div>
+          <p class="text-sm text-emerald-300">Instituições Apoiadas</p>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-emerald-400 mb-2">1000+</div>
+          <p class="text-sm text-emerald-300">Pessoas Ajudadas</p>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-emerald-400 mb-2">100%</div>
+          <p class="text-sm text-emerald-300">Impacto Comprovado</p>
+        </div>
+      </div>
+
+    </section>
   </main>
 
-  <footer class="bg-emerald-900/60 border-t border-emerald-800 py-6 text-center text-xs text-emerald-400">
-    <p>© Logística SNSC • Compromisso Social e Transparência</p>
+  <footer class="bg-emerald-900/60 border-t border-emerald-800 py-8 text-center">
+    <p class="text-xs text-emerald-400 mb-2">© Logística SNSC • Compromisso Social e Transparência</p>
+    <p class="text-xs text-emerald-500">Conectando solidariedade com impacto real</p>
   </footer>
 
 </body>
