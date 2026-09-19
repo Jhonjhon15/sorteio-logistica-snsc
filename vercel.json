@@ -1,15 +1,33 @@
 {
-  "buildCommand": "echo 'Build complete'",
-  "outputDirectory": ".",
-  "cleanUrls": false,
+  "version": 2,
+  "builds": [
+    {
+      "src": "**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/doar", "dest": "/doacoes.html" },
+    { "src": "/doacoes", "dest": "/doacoes.html" },
+    { "src": "/pagamento", "dest": "/pagamento.html" },
+    { "src": "/sorteio", "dest": "/sorteio.html" },
+    { "src": "/admin", "dest": "/management/login.html" },
+    { "src": "/admin/numeros", "dest": "/management/admin-numeros.html" },
+    { "src": "/admin/pagamentos", "dest": "/management/admin-pagamentos.html" },
+    { "src": "/admin/instituicao", "dest": "/management/admin-instituicao.html" },
+    { "src": "/admin/cadastros", "dest": "/management/admin-cadastros.html" },
+    { "src": "/cadastro", "dest": "/cadastro.html" },
+    { "src": "/instituicoes", "dest": "/instituicoes.html" },
+    { "src": "/confirmacao", "dest": "/confirmacao.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
     }
   ]

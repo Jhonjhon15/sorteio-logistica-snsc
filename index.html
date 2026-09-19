@@ -1,87 +1,116 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal de Impacto Social – Logística SNSC</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logística do Santuário - Início</title>
+  <link rel="icon" href="data:,">
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { 
-      font-family: 'Plus Jakarta Sans', sans-serif;
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(52, 211, 153, 0.15);
     }
   </style>
 </head>
-<body class="bg-emerald-950 text-white min-h-screen flex flex-col justify-between">
+<body class="bg-slate-950 text-slate-100 min-h-screen bg-gradient-to-br from-slate-950 via-emerald-950/40 to-slate-900 selection:bg-emerald-500 selection:text-slate-950">
 
-  <header class="bg-emerald-900 border-b border-emerald-800 shadow-lg">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      
-      <div class="flex items-center gap-3">
-        <div class="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center font-black text-white shadow-lg text-xl border border-emerald-400">
-          LS
-        </div>
+  <header class="glass-panel border-b border-emerald-900/60 shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <img src="assets/logo-logistica.png" alt="Logística do Santuário" class="w-10 h-10 object-contain rounded-xl bg-emerald-500/10 p-1 border border-emerald-500/20">
+        <img src="../assets/logo-santuario.png" alt="Logo Santuário" class="w-10 h-10 object-contain rounded-xl bg-emerald-500/10 p-1 border border-emerald-500/20">
+        <img src="../assets/nossa-senhora-da-conceicao.png" alt="Nossa Senhora da Conceição" class="relative w-16 h-16 object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">
         <div>
-          <h1 class="text-xl font-bold text-white leading-tight">Logística SNSC</h1>
-          <p class="text-xs text-emerald-300 font-medium">Portal de Impacto Social</p>
+          <a href="index.html" class="font-bold text-white tracking-wide hover:text-emerald-400 transition">Logística SNSC</a>
+          <p class="text-[10px] text-emerald-400 font-medium tracking-widest uppercase">Santuário da Conceição</p>
         </div>
       </div>
 
-      <nav class="flex items-center gap-4 text-sm font-semibold">
-        <a href="instituicoes.html" class="text-emerald-200 hover:text-white transition">
-          Instituições
-        </a>
-        <a href="meus-numeros.html" class="bg-emerald-700 hover:bg-emerald-600 px-4 py-2 rounded-xl text-white transition border border-emerald-500 shadow">
-          Meus Prêmios
-        </a>
+      <nav class="flex flex-wrap gap-4 text-sm font-medium">
+        <a href="index.html" class="text-emerald-400 transition">Início</a>
+        <a href="instituicoes.html" class="text-slate-300 hover:text-emerald-400 transition">Instituições</a>
+        <a href="doar.html" class="text-slate-300 hover:text-emerald-400 transition">Doações</a>
+        <a href="cadastro.html" class="text-slate-300 hover:text-emerald-400 transition">Cadastro</a>
+        <a href="numeros.html" class="text-slate-300 hover:text-emerald-400 transition">Consultar Números</a>
       </nav>
     </div>
   </header>
 
-  <main class="flex-grow flex items-center justify-center">
-    <section class="max-w-4xl mx-auto px-4 py-20 text-center">
+  <main class="max-w-6xl mx-auto px-4 py-10">
 
-      <span class="bg-emerald-800/80 text-emerald-200 border border-emerald-600 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block mb-6">
-        Conectando Quem Quer Ajudar a Quem Mais Precisa
-      </span>
+    <section class="glass-panel border border-emerald-800/60 rounded-3xl p-8 md:p-12 text-center mb-10 shadow-2xl relative overflow-hidden">
+      <div class="absolute inset-0 bg-emerald-500/5 pointer-events-none"></div>
 
-      <h2 class="text-4xl sm:text-6xl font-extrabold text-white max-w-3xl mx-auto leading-tight mb-6">
-        Transformando Vidas Através da Solidariedade
-      </h2>
-
-      <p class="text-emerald-200 text-base sm:text-lg max-w-2xl mx-auto font-normal mb-10">
-        Conheça as instituições parceiras apoiadas pelo grupo Logística SNSC. Escolha uma causa, acompanhe as metas e faça sua contribuição direta ou participe de nossas ações.
-      </p>
-
-      <a 
-        href="instituicoes.html" 
-        class="inline-block bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold py-4 px-10 rounded-2xl shadow-lg transition text-lg border-2 border-emerald-400 hover:border-emerald-300"
-      >
-        Conhecer Instituições Parceiras ➔
-      </a>
-
-      <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
-        <div class="text-center">
-          <div class="text-3xl font-bold text-emerald-400 mb-2">50+</div>
-          <p class="text-sm text-emerald-300">Instituições Apoiadas</p>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl font-bold text-emerald-400 mb-2">1000+</div>
-          <p class="text-sm text-emerald-300">Pessoas Ajudadas</p>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl font-bold text-emerald-400 mb-2">100%</div>
-          <p class="text-sm text-emerald-300">Impacto Comprovado</p>
+      <div class="flex justify-center mb-6">
+        <div class="relative">
+          <div class="absolute inset-0 bg-red-500/20 blur-xl rounded-full"></div>
+          <img src="assets/nossa-senhora-vermelha.png" alt="Nossa Senhora da Conceição" class="relative w-28 h-28 md:w-36 md:h-36 object-contain drop-shadow-[0_0_20px_rgba(239,68,68,0.5)]">
         </div>
       </div>
 
+      <h2 class="text-xs font-bold text-emerald-400 tracking-[0.2em] uppercase mb-1">Santuário da Conceição • Monte Castelo • São Luís • MA</h2>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Ação Solidária Logística do Santuário</h1>
+      
+      <p class="text-slate-300 max-w-2xl mx-auto mb-8 text-base md:text-lg leading-relaxed">
+        Ajude doando números da sorte, valores em PIX ou itens essenciais. Tudo organizado e direcionado de forma transparente para quem mais precisa.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="doar.html" class="px-7 py-3.5 bg-emerald-500 text-slate-950 font-bold rounded-xl hover:bg-emerald-400 transition shadow-lg shadow-emerald-900/55">
+          Escolher números e doar →
+        </a>
+        <a href="instituicoes.html" class="px-7 py-3.5 glass-panel border border-emerald-700/60 text-slate-100 font-semibold rounded-xl hover:border-emerald-500 transition">
+          Ver instituições parceiras
+        </a>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-xl font-bold mb-5 text-white flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Categorias de Doação
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="doar.html" class="glass-panel border border-emerald-800/50 rounded-2xl p-6 text-center hover:border-emerald-500/60 hover:shadow-xl transition group">
+          <p class="font-bold text-slate-200 group-hover:text-emerald-400 transition">Alimentação</p>
+          <span class="text-xs text-slate-400 mt-1 block">Cestas e mantimentos</span>
+        </a>
+        <a href="doar.html" class="glass-panel border border-emerald-800/50 rounded-2xl p-6 text-center hover:border-emerald-500/60 hover:shadow-xl transition group">
+          <p class="font-bold text-slate-200 group-hover:text-emerald-400 transition">Roupas</p>
+          <span class="text-xs text-slate-400 mt-1 block">Vestuário e calçados</span>
+        </a>
+        <a href="doar.html" class="glass-panel border border-emerald-800/50 rounded-2xl p-6 text-center hover:border-emerald-500/60 hover:shadow-xl transition group">
+          <p class="font-bold text-slate-200 group-hover:text-emerald-400 transition">Higiene</p>
+          <span class="text-xs text-slate-400 mt-1 block">Itens de limpeza e pessoal</span>
+        </a>
+        <a href="doar.html" class="glass-panel border border-emerald-800/50 rounded-2xl p-6 text-center hover:border-emerald-500/60 hover:shadow-xl transition group">
+          <p class="font-bold text-slate-200 group-hover:text-emerald-400 transition">Brinquedos</p>
+          <span class="text-xs text-slate-400 mt-1 block">Alegria e doações infantis</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="glass-panel border border-emerald-800/50 rounded-3xl p-8 text-center shadow-xl relative overflow-hidden">
+      <h2 class="text-xl font-bold text-white mb-2">Participe dos Números da Sorte</h2>
+      <p class="text-slate-300 mb-6 max-w-xl mx-auto">Escolha seus números, contribua com a nossa causa solidária e concorra a prêmios especiais.</p>
+      <a href="doar.html" class="inline-flex items-center justify-center px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-900/40">
+        Escolher meu número agora
+      </a>
     </section>
   </main>
 
-  <footer class="bg-emerald-900/60 border-t border-emerald-800 py-8 text-center">
-    <p class="text-xs text-emerald-400 mb-2">© Logística SNSC • Compromisso Social e Transparência</p>
-    <p class="text-xs text-emerald-500">Conectando solidariedade com impacto real</p>
+  <footer class="border-t border-emerald-900/60 mt-16 py-6 text-center text-sm text-slate-400">
+    Logística do Santuário &copy; 2026 - Todos os direitos reservados
   </footer>
 
+  <script src="js/supabase-config.js"></script>
 </body>
 </html>

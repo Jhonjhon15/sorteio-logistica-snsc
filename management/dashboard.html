@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Administrativo — Logística do Santuário</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              950: '#020617', 900: '#064e3b', 800: '#065f46',
+              700: '#047857', 600: '#059669', 500: '#10b981',
+              400: '#34d399', 300: '#6ee7b7', 200: '#a7f3d0', 100: '#d1fae5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    .gradient-bg { 
+      background: radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+                  #020617; 
+      background-attachment: fixed;
+    }
+    .card-glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(52, 211, 153, 0.15);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="gradient-bg min-h-screen text-slate-100 antialiased flex flex-col justify-between">
+
+  <header class="card-glass border-b border-emerald-900/60 shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      
+      <div class="flex items-center space-x-3">
+        <img src="../assets/logo-logistica.png" alt="Logística do Santuário" class="w-10 h-10 object-contain rounded-xl bg-emerald-500/10 p-1 border border-emerald-500/20">
+        <div>
+          <a href="dashboard.html" class="font-bold text-white tracking-wide hover:text-emerald-400 transition">Painel Administrativo</a>
+          <p class="text-[10px] text-emerald-400 font-medium tracking-widest uppercase">Gestão Operacional SNSC</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 text-sm font-medium">
+        <a href="../index.html" target="_blank" class="text-slate-300 hover:text-emerald-400 px-3 py-2 transition-colors text-xs">Ver Site Público ↗</a>
+        <a href="numeros.html" class="text-slate-300 hover:text-emerald-400 px-3 py-2 transition-colors text-xs">Bilhetes</a>
+        <a href="pagamentos.html" class="text-slate-300 hover:text-emerald-400 px-3 py-2 transition-colors text-xs">Pagamentos</a>
+        <a href="instituicao.html" class="text-slate-300 hover:text-emerald-400 px-3 py-2 transition-colors text-xs">Instituições</a>
+        <button id="btn-sair" class="bg-rose-500/10 text-rose-400 border border-rose-500/20 text-xs px-3.5 py-2 rounded-xl hover:bg-rose-500/20 transition-all cursor-pointer">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto p-6 space-y-6">
+
+    <div class="card-glass p-6 rounded-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+      <div class="absolute inset-0 bg-emerald-500/5 pointer-events-none"></div>
+      
+      <div class="flex items-center space-x-4 relative z-10">
+        <img src="../assets/nossa-senhora-vermelha.png" alt="Nossa Senhora da Conceição" class="w-16 h-16 object-contain drop-shadow-[0_0_10px_rgba(239,68,68,0.3)] hidden sm:block">
+        <img src="../assets/logo-santuario.png" alt="Logo Santuário" class="w-10 h-10 object-contain rounded-xl bg-emerald-500/10 p-1 border border-emerald-500/20">
+        <img src="../assets/nossa-senhora-da-conceicao.png" alt="Nossa Senhora da Conceição" class="relative w-16 h-16 object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+        <div>
+          <h2 class="text-xs font-bold text-emerald-400 tracking-[0.2em] uppercase mb-1">Central de Comando</h2>
+          <h1 class="text-2xl font-extrabold text-white">Bem-vindo ao Painel, Administrador</h1>
+          <p class="text-sm text-slate-300 mt-1">Monitore em tempo real as doações, o status dos bilhetes da sorte e gerencie as entidades parceiras.</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3 relative z-10">
+        <span class="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-2"></span> Sistema Online
+        </span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      
+      <div class="card-glass p-5 rounded-2xl flex flex-col justify-between">
+        <div class="flex justify-between items-start">
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total de Bilhetes</span>
+          <span class="text-emerald-400 bg-emerald-500/10 p-2 rounded-xl text-xs font-bold">🎟️</span>
+        </div>
+        <div class="mt-4">
+          <h3 id="stat-bilhetes" class="text-2xl font-extrabold text-white">Carregando...</h3>
+          <p class="text-xs text-slate-400 mt-1">Registrados no sistema</p>
+        </div>
+      </div>
+
+      <div class="card-glass p-5 rounded-2xl flex flex-col justify-between">
+        <div class="flex justify-between items-start">
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Pagamentos Pendentes</span>
+          <span class="text-amber-400 bg-amber-500/10 p-2 rounded-xl text-xs font-bold">⏳</span>
+        </div>
+        <div class="mt-4">
+          <h3 id="stat-pendentes" class="text-2xl font-extrabold text-white">Carregando...</h3>
+          <p class="text-xs text-slate-400 mt-1">Aguardando aprovação</p>
+        </div>
+      </div>
+
+      <div class="card-glass p-5 rounded-2xl flex flex-col justify-between">
+        <div class="flex justify-between items-start">
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Instituições Parceiras</span>
+          <span class="text-blue-400 bg-blue-500/10 p-2 rounded-xl text-xs font-bold">🏛️</span>
+        </div>
+        <div class="mt-4">
+          <h3 id="stat-instituicoes" class="text-2xl font-extrabold text-white">Carregando...</h3>
+          <p class="text-xs text-slate-400 mt-1">Cadastradas e ativas</p>
+        </div>
+      </div>
+
+      <div class="card-glass p-5 rounded-2xl flex flex-col justify-between">
+        <div class="flex justify-between items-start">
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ações Rápidas</span>
+          <span class="text-emerald-400 bg-emerald-500/10 p-2 rounded-xl text-xs font-bold">⚡</span>
+        </div>
+        <div class="mt-4 flex flex-col gap-2">
+          <a href="numeros.html" class="text-xs text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2 rounded-xl transition">Gerenciar Bilhetes</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card-glass p-6 rounded-3xl space-y-4">
+      <h2 class="text-lg font-bold text-white">Módulos do Sistema</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <a href="numeros.html" class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-emerald-500/50 transition group">
+          <h3 class="font-bold text-white group-hover:text-emerald-400 transition mb-1">Controle de Bilhetes</h3>
+          <p class="text-xs text-slate-400">Consulte números livres, ocupados, filtre por telefone e libere bilhetes se necessário.</p>
+        </a>
+
+        <a href="pagamentos.html" class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-emerald-500/50 transition group">
+          <h3 class="font-bold text-white group-hover:text-emerald-400 transition mb-1">Validação de Pagamentos</h3>
+          <p class="text-xs text-slate-400">Verifique comprovantes PIX enviados pelos participantes e aprove as doações.</p>
+        </a>
+
+        <a href="instituicao.html" class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-emerald-500/50 transition group">
+          <h3 class="font-bold text-white group-hover:text-emerald-400 transition mb-1">Gestão de Instituições</h3>
+          <p class="text-xs text-slate-400">Cadastre e edite as entidades beneficiadas pela ação solidária do Santuário.</p>
+        </a>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-emerald-900/65 mt-16 py-6 text-center text-sm text-slate-400 bg-slate-950/50">
+    Logística do Santuário &copy; 2026 - Todos os direitos reservados
+  </footer>
+
+  <script src="../js/supabase-config.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const supabaseClient = getSupabase();
+
+      const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+      if (sessionError || !session) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      document.getElementById('btn-sair').addEventListener('click', async () => {
+        await supabaseClient.auth.signOut();
+        window.location.href = 'login.html';
+      });
+
+      try {
+
+        const { count: totalBilhetes, error: errBilhetes } = await supabaseClient
+          .from('numeros_escolhidos')
+          .select('*', { count: 'exact', head: true });
+        
+        if (!errBilhetes) {
+          document.getElementById('stat-bilhetes').innerText = totalBilhetes || 0;
+        }
+
+        const { count: totalPendentes, error: errPendentes } = await supabaseClient
+          .from('numeros_escolhidos')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'pendente');
+
+        if (!errPendentes) {
+          document.getElementById('stat-pendentes').innerText = totalPendentes || 0;
+        }
+
+        const { count: totalInst, error: errInst } = await supabaseClient
+          .from('instituicoes')
+          .select('*', { count: 'exact', head: true });
+
+        if (!errInst) {
+          document.getElementById('stat-instituicoes').innerText = totalInst || 0;
+        }
+
+      } catch (err) {
+        console.error('Erro ao carregar métricas do dashboard:', err);
+      }
+    });
+  </script>
+</body>
+</html>

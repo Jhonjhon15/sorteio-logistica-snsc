@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Controle de Cadastros</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass-panel {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(52, 211, 153, 0.15);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+  <header class="glass-panel border-b border-slate-800/80 px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold border border-emerald-500/20">A</div>
+      <div>
+        <h1 class="font-bold text-lg text-white">Painel Administrativo</h1>
+        <p class="text-xs text-emerald-400">Controle Geral de Cadastros do Sistema</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-4">
+      <a href="/admin/numeros" class="text-sm text-slate-300 hover:text-emerald-400 transition-colors">Bilhetes</a>
+      <a href="/admin/pagamentos" class="text-sm text-slate-300 hover:text-emerald-400 transition-colors">Pagamentos</a>
+      <a href="/admin/instituicao" class="text-sm text-slate-300 hover:text-emerald-400 transition-colors">Instituições</a>
+      <button id="btn-sair" class="bg-rose-500/10 text-rose-400 border border-rose-500/20 text-xs px-3 py-2 rounded-lg hover:bg-rose-500/20 transition-all">Sair</button>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-6xl w-full mx-auto p-6 space-y-6">
+    <div>
+      <h2 class="text-2xl font-bold text-white">Cadastros Realizados</h2>
+      <p class="text-sm text-slate-400">Visualize todos os registros gerais e usuários cadastrados na plataforma.</p>
+    </div>
+
+    <div class="glass-panel rounded-2xl shadow-xl overflow-hidden">
+      <div class="p-4 border-b border-slate-800 font-semibold text-white">Registros Gerais</div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-slate-800/80 text-xs font-semibold uppercase tracking-wider text-slate-400 bg-slate-900/40">
+              <th class="p-4">Nome / Identificação</th>
+              <th class="p-4">Contato / E-mail</th>
+              <th class="p-4">Data do Registro</th>
+              <th class="p-4 text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-cadastros" class="divide-y divide-slate-800/50 text-sm">
+            <tr>
+              <td colspan="4" class="p-6 text-center text-slate-500">Carregando cadastros...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/supabase-config.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const tbody = document.getElementById('tabela-cadastros');
+
+      try {
+
+        const { data, error } = await supabaseClient.from('doacoes').select('*').order('created_at', { ascending: false });
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-slate-500">Nenhum cadastro encontrado.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = data.map(item => `
+          <tr class="hover:bg-slate-900/30 transition-colors">
+            <td class="p-4 font-medium text-white">${item.nome_doador || 'Anônimo'}</td>
+            <td class="p-4 text-slate-300">${item.whatsapp || item.email || '-'}</td>
+            <td class="p-4 text-slate-400 text-xs">${new Date(item.created_at).toLocaleString('pt-BR')}</td>
+            <td class="p-4 text-right">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${item.status === 'aprovado' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">
+                ${item.status || 'Pendente'}
+              </span>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error('Erro ao buscar cadastros:', err);
+        tbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-rose-400">Erro ao carregar dados do banco.</td></tr>`;
+      }
+
+      document.getElementById('btn-sair').addEventListener('click', async () => {
+        await supabaseClient.auth.signOut();
+        window.location.href = '/admin';
+      });
+    });
+  </script>
+</body>
+</html>

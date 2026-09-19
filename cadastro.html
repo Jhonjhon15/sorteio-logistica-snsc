@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro — Logística do Santuário</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              950: '#020617', 900: '#064e3b', 800: '#065f46',
+              700: '#047857', 600: '#059669', 500: '#10b981',
+              400: '#34d399', 300: '#6ee7b7', 200: '#a7f3d0', 100: '#d1fae5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    .gradient-bg { 
+      background: radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+                  #020617; 
+      background-attachment: fixed;
+    }
+    .card-glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(52, 211, 153, 0.15);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body class="gradient-bg min-h-screen text-slate-100 antialiased flex flex-col justify-between">
+
+  <header class="card-glass border-b border-emerald-900/60 shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      
+      <div class="flex items-center space-x-3">
+        <img src="assets/logo-logistica.png" alt="Logística do Santuário" class="w-10 h-10 object-contain rounded-xl bg-emerald-500/10 p-1 border border-emerald-500/20">
+        <img src="../assets/logo-santuario.png" alt="Logo Santuário" class="w-10 h-10 object-contain rounded-xl bg-emerald-500/10 p-1 border border-emerald-500/20">
+        <img src="../assets/nossa-senhora-da-conceicao.png" alt="Nossa Senhora da Conceição" class="relative w-16 h-16 object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+        <div>
+          <a href="index.html" class="font-bold text-white tracking-wide hover:text-emerald-400 transition">Logística SNSC</a>
+          <p class="text-[10px] text-emerald-400 font-medium tracking-widest uppercase">Santuário da Conceição</p>
+        </div>
+      </div>
+
+      <nav class="flex flex-wrap gap-4 text-sm font-medium">
+        <a href="index.html" class="text-slate-300 hover:text-emerald-400 transition">Início</a>
+        <a href="instituicoes.html" class="text-slate-300 hover:text-emerald-400 transition">Instituições</a>
+        <a href="doar.html" class="text-slate-300 hover:text-emerald-400 transition">Doações</a>
+        <a href="cadastro.html" class="text-emerald-400 transition">Cadastro</a>
+        <a href="numeros.html" class="text-slate-300 hover:text-emerald-400 transition">Consultar Números</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-xl mx-auto px-4 py-10 w-full flex-grow">
+
+    <div class="text-center mb-8">
+      <div class="flex justify-center mb-4">
+        <div class="relative">
+          <div class="absolute inset-0 bg-red-500/20 blur-xl rounded-full"></div>
+          <img src="assets/nossa-senhora-vermelha.png" alt="Nossa Senhora da Conceição" class="relative w-24 h-24 object-contain drop-shadow-[0_0_15px_rgba(239,68,68,0.4)]">
+        </div>
+      </div>
+      <h2 class="text-xs font-bold text-emerald-400 tracking-[0.2em] uppercase mb-1">Santuário da Conceição • Monte Castelo</h2>
+      <h1 class="text-3xl font-extrabold mb-2 text-white">Cadastro de Interesse</h1>
+      <p class="text-slate-300">Preencha os dados caso deseje se cadastrar como voluntário ou instituição parceira.</p>
+    </div>
+
+    <div class="card-glass rounded-3xl p-8 relative overflow-hidden">
+      <div class="absolute inset-0 bg-emerald-500/5 pointer-events-none"></div>
+
+      <form id="form-cadastro" class="space-y-4">
+        <div>
+          <label for="nome" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Nome completo / Instituição *</label>
+          <input type="text" id="nome" required 
+                 class="w-full bg-slate-900/80 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition text-sm" placeholder="Seu nome ou nome da instituição">
+        </div>
+
+        <div>
+          <label for="whatsapp" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">WhatsApp *</label>
+          <input type="tel" id="whatsapp" required placeholder="(98) 99999-9999" 
+                 class="w-full bg-slate-900/80 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition text-sm">
+        </div>
+
+        <div>
+          <label for="tipo" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Tipo de cadastro *</label>
+          <select id="tipo" required 
+                  class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-emerald-500 transition text-sm">
+            <option value="" class="bg-slate-950 text-slate-400">Selecione...</option>
+            <option value="voluntario" class="bg-slate-950 text-slate-100">Voluntário</option>
+            <option value="instituicao" class="bg-slate-950 text-slate-100">Instituição</option>
+            <option value="outro" class="bg-slate-950 text-slate-100">Outro</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="observacao" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Observação (opcional)</label>
+          <textarea id="observacao" rows="3" 
+                    class="w-full bg-slate-900/80 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition text-sm resize-none" placeholder="Conte-nos um pouco mais se desejar..."></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-emerald-500 text-slate-950 font-bold py-3.5 rounded-xl hover:bg-emerald-400 transition shadow-lg shadow-emerald-900/40 text-sm mt-2">
+          Enviar Cadastro
+        </button>
+      </form>
+
+      <div id="feedback-cadastro" class="hidden mt-4"></div>
+    </div>
+  </main>
+
+  <footer class="border-t border-emerald-900/60 mt-16 py-6 text-center text-sm text-slate-400 bg-slate-950/50">
+    Logística do Santuário &copy; 2026 - Todos os direitos reservados
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    const supabase = getSupabase();
+    document.getElementById('form-cadastro').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value.trim();
+      const whatsapp = somenteDigitos(document.getElementById('whatsapp').value);
+      const tipo = document.getElementById('tipo').value;
+      const observacao = document.getElementById('observacao').value.trim();
+
+      if (!nome || whatsapp.length < 10 || !tipo) {
+        alert('Preencha todos os campos obrigatórios.');
+        return;
+      }
+
+      const { error } = await supabase.from('cadastros').insert({ nome, whatsapp, tipo, observacao: observacao || null });
+      if (error) {
+        alert('Erro ao enviar. Tente novamente.');
+        return;
+      }
+      alert('Cadastro enviado com sucesso!');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

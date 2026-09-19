@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorteio — Logística do Santuário</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              950: '#020617', 900: '#064e3b', 800: '#065f46',
+              700: '#047857', 600: '#059669', 500: '#10b981',
+              400: '#34d399', 300: '#6ee7b7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    .gradient-bg { 
+      background: radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+                  #020617; 
+      background-attachment: fixed;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(52, 211, 153, 0.15);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .num-btn { width: 3rem; height: 3rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.875rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .num-disponivel { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(52, 211, 153, 0.2); color: #d1fae5; cursor: pointer; }
+    .num-disponivel:hover { background: #059669; color: white; border-color: #10b981; }
+    .num-selecionado { background: #10b981; color: #020617; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); font-weight: 700; }
+    .num-indisponivel { background: rgba(30, 41, 59, 0.5); color: #64748b; cursor: not-allowed; border: 1px solid rgba(255,255,255,0.02); }
+  </style>
+</head>
+<body class="gradient-bg min-h-screen text-slate-100 antialiased">
+
+  <header class="glass-panel border-b border-emerald-900/60 shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      
+      <div class="flex items-center space-x-3">
+        <img src="assets/logo-logistica.png" alt="Logística do Santuário" class="w-10 h-10 object-contain rounded-xl bg-emerald-500/10 p-1 border border-emerald-500/20">
+        <div>
+          <a href="index.html" class="font-bold text-white tracking-wide hover:text-emerald-400 transition">Logística SNSC</a>
+          <p class="text-[10px] text-emerald-400 font-medium tracking-widest uppercase">Santuário da Conceição</p>
+        </div>
+      </div>
+
+      <nav class="flex flex-wrap gap-4 text-sm font-medium">
+        <a href="index.html" class="text-slate-300 hover:text-emerald-400 transition">Início</a>
+        <a href="instituicoes.html" class="text-slate-300 hover:text-emerald-400 transition">Instituições</a>
+        <a href="doar.html" class="text-slate-300 hover:text-emerald-400 transition">Doações</a>
+        <a href="cadastro.html" class="text-slate-300 hover:text-emerald-400 transition">Cadastro</a>
+        <a href="numeros.html" class="text-slate-300 hover:text-emerald-400 transition">Consultar Números</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-10">
+
+    <div class="text-center mb-10">
+      <div class="flex justify-center mb-4">
+        <div class="relative">
+          <div class="absolute inset-0 bg-red-500/20 blur-xl rounded-full"></div>
+          <img src="assets/nossa-senhora-da-conceicao.png" alt="Nossa Senhora da Conceição" class="relative w-24 h-24 object-contain drop-shadow-[0_0_15px_rgba(239,68,68,0.4)]">
+        </div>
+      </div>
+      <h2 class="text-xs font-bold text-emerald-400 tracking-[0.2em] uppercase mb-1">Santuário da Conceição • Monte Castelo</h2>
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-2 text-white">Participe do Sorteio</h1>
+      <p class="text-slate-300">Escolha seus números e concorra aos prêmios. Cada número custa R$ 10,00.</p>
+    </div>
+
+    <form id="form-sorteio" class="space-y-6">
+
+      <section class="glass-panel rounded-2xl p-6">
+        <h2 class="text-lg font-semibold mb-5 text-emerald-300 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Seus dados
+        </h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Nome completo *</label>
+            <input type="text" id="nome" required class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-100 focus:border-emerald-500 outline-none transition-colors" placeholder="Seu nome">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">WhatsApp *</label>
+            <input type="tel" id="whatsapp" required class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-100 focus:border-emerald-500 outline-none transition-colors" placeholder="(98) 99999-9999">
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-panel rounded-2xl p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <h2 class="text-lg font-semibold text-emerald-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Escolha seus números
+          </h2>
+          <div class="text-sm text-slate-300">
+            Selecionados: <span id="qtd-selecionados" class="font-bold text-emerald-400">0</span>
+            · Total: <span id="valor-numeros" class="font-bold text-emerald-400">R$ 0,00</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-4">
+          <button type="button" id="btn-aleatorio" class="px-4 py-2 rounded-xl bg-emerald-800/40 hover:bg-emerald-700/60 text-emerald-200 border border-emerald-700/30 text-sm font-semibold transition">Sortear aleatório</button>
+          <button type="button" id="btn-limpar" class="px-4 py-2 rounded-xl bg-slate-800/60 hover:bg-slate-700 text-slate-300 border border-slate-700/50 text-sm font-semibold transition">Limpar</button>
+        </div>
+
+        <div id="grid-numeros" class="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-12 gap-2 max-h-72 overflow-y-auto p-1">
+          <div class="col-span-full text-center py-8 text-emerald-400/60">Carregando números...</div>
+        </div>
+      </section>
+
+      <section class="glass-panel rounded-2xl p-6">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <p class="text-xs uppercase tracking-wider text-slate-400">Valor total</p>
+            <p id="valor-total-display" class="text-3xl font-extrabold text-emerald-400">R$ 0,00</p>
+          </div>
+          <button type="submit" id="btn-continuar" class="w-full sm:w-auto px-10 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-lg transition shadow-lg shadow-emerald-900/40">
+            Continuar para pagamento →
+          </button>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <footer class="border-t border-emerald-900/60 mt-12 py-6 text-center text-sm text-slate-400">
+    Logística do Santuário &copy; 2026 - Todos os direitos reservados
+  </footer>
+
+  <script src="js/supabase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/sorteio.js"></script>
+</body>
+</html>

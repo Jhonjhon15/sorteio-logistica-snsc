@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Números & Sorteio — Logística SNSC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              950: '#052e16', 900: '#064e3b', 800: '#065f46',
+              700: '#047857', 600: '#059669', 500: '#10b981',
+              400: '#34d399', 300: '#6ee7b7', 200: '#a7f3d0', 100: '#d1fae5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .gradient-bg { background: linear-gradient(160deg, #052e16 0%, #064e3b 40%, #065f46 100%); }
+    .card-glass {
+      background: rgba(6, 78, 59, 0.45);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(16, 185, 129, 0.15);
+    }
+  </style>
+</head>
+<body class="gradient-bg min-h-screen text-emerald-50 antialiased flex flex-col justify-between">
+
+  <header class="border-b border-emerald-800/50 bg-forest-950/80 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="px-2.5 py-1 rounded-lg bg-red-500/20 text-red-300 text-xs font-bold border border-red-500/30">ÁREA RESTRITA</span>
+        <h1 class="text-lg font-bold">Gestão de Números & Sorteio</h1>
+      </div>
+      <a href="admin.html" class="text-sm text-emerald-300 hover:text-emerald-100 transition underline font-medium">← Voltar ao Painel</a>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-10 w-full flex-grow space-y-8">
+
+    <section class="card-glass rounded-2xl p-6 border border-emerald-500/30">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-xl font-bold mb-1">Realizar Sorteio Oficial</h2>
+          <p class="text-sm text-emerald-200/70">Selecione aleatoriamente os ganhadores do 1º, 2º e 3º lugar entre os números confirmados.</p>
+        </div>
+        <button id="btn-realizar-sorteio" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-forest-950 font-bold text-sm transition shadow-lg">
+          Sortear Vencedores Agora
+        </button>
+      </div>
+
+      <div id="podium-resultado" class="grid sm:grid-cols-3 gap-4 pt-4 border-t border-emerald-800/50">
+        <div class="p-4 rounded-xl bg-forest-900/60 border border-amber-500/30 text-center">
+          <span class="text-xs uppercase font-bold text-amber-400 tracking-wider block mb-1">🥇 1º Lugar</span>
+          <div id="ganhador-1" class="text-sm font-semibold text-emerald-100">Aguardando sorteio...</div>
+        </div>
+        <div class="p-4 rounded-xl bg-forest-900/60 border border-slate-400/30 text-center">
+          <span class="text-xs uppercase font-bold text-slate-300 tracking-wider block mb-1">🥈 2º Lugar</span>
+          <div id="ganhador-2" class="text-sm font-semibold text-emerald-100">Aguardando sorteio...</div>
+        </div>
+        <div class="p-4 rounded-xl bg-forest-900/60 border border-amber-700/30 text-center">
+          <span class="text-xs uppercase font-bold text-amber-600 tracking-wider block mb-1">🥉 3º Lugar</span>
+          <div id="ganhador-3" class="text-sm font-semibold text-emerald-100">Aguardando sorteio...</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card-glass rounded-2xl p-6">
+      <h2 class="text-xl font-semibold mb-4">Moderação de Bilhetes & Pagamentos</h2>
+      <p class="text-sm text-emerald-200/70 mb-6">Aprove os pagamentos via PIX para oficializar os números na cartela pública.</p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-emerald-800 text-xs text-emerald-300 uppercase tracking-wider">
+              <th class="p-3">Número</th>
+              <th class="p-3">Participante</th>
+              <th class="p-3">WhatsApp</th>
+              <th class="p-3">Status</th>
+              <th class="p-3 text-right">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-moderacao-numeros" class="text-sm">
+            <tr>
+              <td colspan="5" class="p-4 text-center text-emerald-400/60">Carregando bilhetes...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-emerald-800/40 py-6 text-center text-sm text-emerald-400/50 bg-forest-950/50">
+    Logística SNSC © 2026 — Painel Administrativo
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="js/admin-dashboard.js"></script>
+</body>
+</html>
